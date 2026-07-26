@@ -1,0 +1,32 @@
+[
+  {
+    "id": "V001",
+    "tenant_id": "demo-tenant-1",
+    "name": "Acme Corp",
+    "tax_id": "AC-2291",
+    "parent_company_id": "PC001"
+  },
+  {
+    "id": "V002",
+    "tenant_id": "demo-tenant-1",
+    "name": "Acme Digital",
+    "tax_id": "AD-4471",
+    "parent_company_id": "PC001"
+  },
+  {
+    "id": "V003",
+    "tenant_id": "demo-tenant-1",
+    "name": "Beta Inc",
+    "tax_id": "BI-1002",
+    "parent_company_id": null,
+    "_note": "Edge case: no parent company. Should never appear in subsidiary traversal queries."
+  },
+  {
+    "id": "V001",
+    "tenant_id": "demo-tenant-2",
+    "name": "Acme Corp",
+    "tax_id": "AC-9910",
+    "parent_company_id": null,
+    "_note": "Edge case: same id AND same name as V001 under demo-tenant-1, but a completely different company. Used to prove tenant isolation — a query scoped to demo-tenant-1 must never return this record."
+  }
+]

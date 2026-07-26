@@ -1,0 +1,13 @@
+ADDENDUM TO SERVICE AGREEMENT
+Between: Acme Digital ("Vendor") and Northwind Trading ("Customer")
+Effective Date: March 1, 2026
+
+SECTION 1 — PRICING REVISION
+Effective this addendum, the monthly service fee increases from
+$1,200 to $1,500, reflected starting with the invoice issued on
+June 1, 2026 (INV-1004).
+
+SECTION 2 — PAYMENT TERMS (UNCHANGED)
+All other payment terms from the original Master Service Agreement
+remain in effect, including the net-30 payment window and the 1.5%
+monthly late penalty on overdue balances.

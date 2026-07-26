@@ -1,0 +1,31 @@
+MASTER SERVICE AGREEMENT
+Between: Acme Corp ("Vendor") and Northwind Trading ("Customer")
+Effective Date: January 15, 2024
+
+SECTION 1 — PAYMENT TERMS
+Payment is due within 30 days of the invoice date ("net-30"). Invoices
+not paid within this period are considered overdue as of the day
+following the due date.
+
+SECTION 2 — LATE PAYMENT PENALTY
+Late payments incur a penalty of 1.5% per month on the outstanding
+balance, calculated from the due date until the date of payment.
+Penalties compound monthly and are added to the next invoice cycle.
+
+SECTION 3 — CONTRACT RENEWAL
+This agreement renews automatically each year on the anniversary of
+the Effective Date unless either party provides written notice of
+non-renewal at least 90 days prior to the renewal date.
+
+SECTION 4 — TERMINATION
+Either party may terminate this agreement with 60 days written notice.
+If termination occurs within 30 days of a scheduled renewal, any
+volume discount applied for the upcoming term is forfeited, and
+outstanding late payment penalties under Section 2 remain payable
+regardless of termination.
+
+SECTION 5 — DISPUTE RESOLUTION
+Any invoice dispute must be raised in writing within 15 days of the
+invoice date. Disputes raised after this window are not eligible for
+adjustment, though the payment terms in Section 1 still apply to the
+undisputed portion of the invoice.

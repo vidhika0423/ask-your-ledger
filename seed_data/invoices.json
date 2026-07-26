@@ -1,0 +1,71 @@
+[
+  {
+    "id": "INV-1001",
+    "tenant_id": "demo-tenant-1",
+    "vendor_id": "V001",
+    "amount": 12500,
+    "currency": "USD",
+    "issue_date": "2026-04-01",
+    "due_date": "2026-05-01",
+    "status": "overdue",
+    "paid_via": null
+  },
+  {
+    "id": "INV-1002",
+    "tenant_id": "demo-tenant-1",
+    "vendor_id": "V001",
+    "amount": 3200,
+    "currency": "USD",
+    "issue_date": "2026-05-10",
+    "due_date": "2026-06-10",
+    "status": "paid",
+    "paid_via": "PAY-01"
+  },
+  {
+    "id": "INV-1003",
+    "tenant_id": "demo-tenant-1",
+    "vendor_id": "V002",
+    "amount": 8700,
+    "currency": "USD",
+    "issue_date": "2026-05-15",
+    "due_date": "2026-06-15",
+    "status": "overdue",
+    "paid_via": null
+  },
+  {
+    "id": "INV-1004",
+    "tenant_id": "demo-tenant-1",
+    "vendor_id": "V002",
+    "amount": 1500,
+    "currency": "USD",
+    "issue_date": "2026-06-01",
+    "due_date": null,
+    "status": "unknown",
+    "paid_via": null,
+    "_note": "Edge case: missing due_date. Use this to test how entity extraction and the reviewer agent handle incomplete records instead of guessing a date."
+  },
+  {
+    "id": "INV-1005",
+    "tenant_id": "demo-tenant-1",
+    "vendor_id": "V003",
+    "amount": 4200,
+    "currency": "USD",
+    "issue_date": "2026-05-01",
+    "due_date": "2026-05-31",
+    "status": "overdue",
+    "paid_via": null,
+    "_note": "Belongs to Beta Inc (V003), which has no parent company. Should show up in a plain overdue-invoice query but never in a 'subsidiaries of Acme Holdings' query."
+  },
+  {
+    "id": "INV-2001",
+    "tenant_id": "demo-tenant-2",
+    "vendor_id": "V001",
+    "amount": 500,
+    "currency": "USD",
+    "issue_date": "2026-05-01",
+    "due_date": "2026-05-20",
+    "status": "paid",
+    "paid_via": null,
+    "_note": "Belongs to a different tenant's 'Acme Corp' (same id/name, unrelated company). Must never appear in a demo-tenant-1 query."
+  }
+]
