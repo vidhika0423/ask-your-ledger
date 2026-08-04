@@ -1,6 +1,6 @@
 import os
 from pathlib import Path
-import chroma_db
+import chromadb
 from dotenv import load_dotenv
 from neo4j import GraphDatabase
 from sentence_transformers import SentenceTransformer
@@ -14,11 +14,11 @@ NEO4J_PASSWORD = os.environ["NEO4J_PASSWORD"]
 TENANT_ID = "demo-tenant-1"
 
 embed_model = SentenceTransformer("all-MiniLM-L6-v2")
-groq_model = Groq(api_key=os.environ["GROQ_API_KEY"])
+groq_client = Groq(api_key=os.environ["GROQ_API_KEY"])
 GROQ_MODEL = "llama-3.3-70b-versatile"
 
 neo4j_driver = GraphDatabase.driver(NEO4J_URI, auth=(NEO4J_USERNAME, NEO4J_PASSWORD))
-chroma_client = chroma_db.PersistentClient(path="./chroma_db")
+chroma_client = chromadb.PersistentClient(path="./chroma_db")
 raptor_collection = chroma_client.get_collection(name="raptor_tree")
 
 def retrieve_graph_facts():
@@ -44,8 +44,8 @@ def retriver_raptor_context(question, n_results=3):
     level of raptor tree (leaf, level-1 summary, or root).
     """
     query_embedding = embed_model.encode([question]).tolist()
-    results = raptor_collection.query(query_embedding=query_embedding, n_results = n_results)
-    return list(zip(results["documents"][0], results["metadaras"][0], results['distances'][0]))
+    results = raptor_collection.query(query_embeddings=query_embedding, n_results = n_results)
+    return list(zip(results["documents"][0], results["metadatas"][0], results['distances'][0]))
 
 def fuse_context(graph_facts, raptor_results):
     """
@@ -64,7 +64,7 @@ def fuse_context(graph_facts, raptor_results):
 
     raptor_section = "\nDOCUMENT FACTS (from contracts, via RAPTOR retrival):\n"
     for text, metadata,distance in raptor_results:
-        raptor_sectionc += f"- (relevance distance {distance:.3f}, tree level {metadata['level']}): {text}\n"
+        raptor_section += f"- (relevance distance {distance:.3f}, tree level {metadata['level']}): {text}\n"
     return graph_section + raptor_section
 
 def ask_finance_agent(question):
@@ -73,5 +73,28 @@ def ask_finance_agent(question):
     context = fuse_context(graph_facts,raptor_results)
 
     prompt = f"""
-    You are a finance assistant. Answer the question using ONLY the facts below
+    You are a finance assistant. Answer the question using ONLY the facts below.
+    If the facts don't fully answer the question, say what's missing rather than guessing.
+    {context}
+    Question: {question}
+    Answer concisely, citing which invoice IDs or contract sections your answer relies on.
     """
+
+    response = groq_client.chat.completions.create(
+        model = GROQ_MODEL,
+        max_tokens = 300,
+        messages = [{"role":"user", "content":prompt}]
+    )
+
+    print(f"QUESTION: {question}\n")
+    print("--- FUSED CONTEXT SENT TO THE AGENT ---")
+    print(context)
+    print("--- ANSWER ---")
+    print(response.choices[0].message.content.strip())
+    print("=" * 70)
+
+
+if __name__ == "__main__":
+    ask_finance_agent(
+        "Are any subsidiaries of Acme Holdings overdue, and what's the late payment penalty?"
+    )
