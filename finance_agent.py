@@ -38,7 +38,7 @@ def retrieve_graph_facts():
         facts = [dict(record) for record in result]
     return facts
 
-def retriver_raptor_context(question, n_results=3):
+def retrieve_raptor_context(question, n_results=3):
     """
     Embeds the question and pulls the closest matching nodes from ANY
     level of raptor tree (leaf, level-1 summary, or root).
@@ -69,7 +69,7 @@ def fuse_context(graph_facts, raptor_results):
 
 def ask_finance_agent(question):
     graph_facts = retrieve_graph_facts()
-    raptor_results= retriver_raptor_context(question)
+    raptor_results= retrieve_raptor_context(question)
     context = fuse_context(graph_facts,raptor_results)
 
     prompt = f"""
