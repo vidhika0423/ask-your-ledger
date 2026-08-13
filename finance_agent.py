@@ -1,17 +1,3 @@
-"""
-Fusion layer + finance agent.
-
-Per our build plan, there's no separate router yet - every question queries
-BOTH the graph and the RAPTOR tree, and the fusion layer just hands both sets
-of facts to the finance agent, which decides what's actually relevant. This
-is simpler to build and still proves the hybrid-retrieval concept.
-
-Install first:
-    pip install neo4j chromadb sentence-transformers groq python-dotenv
-
-Run:
-    python finance_agent.py
-"""
 
 import os
 from pathlib import Path
